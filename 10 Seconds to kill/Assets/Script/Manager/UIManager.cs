@@ -9,17 +9,36 @@ public class UIManager : MonoBehaviour
     public List<GameObject> generetedButton;
     public Text displayTime;
     public Text displayLife;
+    public Button button;
 
     private void Start()
     {
         _instance = this;
         displayTargeting(false);
+        
+        int i = 0;
+
+        foreach(GameObject w in InventoryManager.instance.weapons)
+        {
+            Button instance = Instantiate<Button>(button);
+            GameObject weaponInstance = Instantiate<GameObject>(w);
+            
+            instance.gameObject.transform.SetParent(canvas.transform);
+            weaponInstance.gameObject.transform.SetParent(instance.transform);
+
+            instance.transform.position = new Vector3(150,50 + i*30,0);
+            instance.GetComponentInChildren<Text>().text = w.name;
+
+            instance.onClick.AddListener(() => weaponInstance.GetComponent<Weapon>().action());
+            
+            i++;
+        }
     }
 
     private void Update()
     {
-        displayTime.text = BattleManager.instance.time.ToString();
-        displayLife.text = GameManager.instance.pv.ToString();
+        displayTime.text = BattleManager.instance.getTime().ToString();
+        displayLife.text = InventoryManager.instance.getLife().ToString();
     }
 
     private static UIManager _instance;

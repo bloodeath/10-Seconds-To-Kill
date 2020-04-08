@@ -15,13 +15,13 @@ public class TestWeapon : Weapon
 
     protected override IEnumerator doSomething()
     {
-        yield return new WaitUntil(() => infirst);
-        Ennemi ennemi = BattleManager.instance.GetEnnemiAtPosition(target);
+        yield return new WaitUntil(() => m_bInfirst);
+        Ennemi ennemi = BattleManager.instance.GetEnnemiAtPosition(m_v2Target);
         if (ennemi && BattleManager.instance.removeTime(cost))
         {
             ennemi.removePV(dmg);
         }
-        infirst = false;
+        m_bInfirst = false;
         UIManager.instance.displayTargeting(false);
     }
 }

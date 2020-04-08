@@ -2,33 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager : Singleton<BattleManager>
 {
+    protected BattleManager() { }
 
-    public int time;
+    private int time = 10;
     public List<Ennemi> ennemis;
     private float temptime;
 
-    private void Start()
-    {
-        _instance = this;
-    }
-
-    private static BattleManager _instance;
-
-    public static BattleManager instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                GameObject go = new GameObject();
-                _instance = go.AddComponent<BattleManager>();
-                Debug.Log(_instance);
-            }
-            return _instance;
-        }
-    }
     private void Update()
     {
         // le tempTime est là pour évité d'utilisé des vrai seconde est le remplacé par un temps "ralenti"
@@ -71,6 +52,11 @@ public class BattleManager : MonoBehaviour
 
         time -= timetoremove;
         return true;
+    }
+
+    public int getTime()
+    {
+        return time;
     }
 
 }
