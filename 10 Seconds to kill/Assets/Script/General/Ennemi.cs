@@ -5,59 +5,101 @@ using UnityEngine;
 public abstract class Ennemi : MonoBehaviour
 {
     [SerializeField]
-    private int pv;
-    public Vector2 pos;
+    protected int m_iLife;
+    protected int m_iMaxLife;
+    public Vector2 m_v2Pos;
+    public Patern patern;
 
     public abstract void action();
 
-    public void removePV(int pvtoless)
+    public void removeLife(int life)
     {
-        pv -= pvtoless;
-        if (pv <= 0)
+        m_iLife -= life;
+        if (m_iLife <= 0)
         {
             BattleManager.instance.ennemis.Remove(this);
             Destroy(gameObject);
         }
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         updatePosition();
+        m_iLife = m_iMaxLife;
     }
 
     public void pushEnnemi(int push)
     {
-        pos.x += push;
-        if (pos.x > 2)
-            pos.x = 2;
+        Ennemi ennemi = BattleManager.instance.GetEnnemiAtPosition(m_v2Pos + Vector2.right);
+        if (!ennemi)
+        {
+            m_v2Pos.x += push;
+            if (m_v2Pos.x > 2)
+                m_v2Pos.x = 2;
+        }
+
         updatePosition();
     }
 
     public void attractEnnemi(int push)
     {
-        pos.x -= push;
-        if (pos.x < 0)
-            pos.x = 0;
+        Ennemi ennemi = BattleManager.instance.GetEnnemiAtPosition(m_v2Pos + Vector2.left);
+        if (!ennemi)
+        {
+            m_v2Pos.x -= push;
+            if (m_v2Pos.x < 0)
+                m_v2Pos.x = 0;
+        }
         updatePosition();
     }
 
     public void rightShift(int push)
     {
-        pos.y += push;
-        if (pos.y > 2)
-            pos.y = 2;
+        Ennemi ennemi = BattleManager.instance.GetEnnemiAtPosition(m_v2Pos + Vector2.up);
+        if (!ennemi)
+        {
+            m_v2Pos.y += push;
+            if (m_v2Pos.y > 2)
+                m_v2Pos.y = 2;
+        }
         updatePosition();
     }
 
     public void leftShift(int push)
     {
-        pos.y -= push;
-        if (pos.y < 0)
-            pos.y = 0;
+        Ennemi ennemi = BattleManager.instance.GetEnnemiAtPosition(m_v2Pos + Vector2.down);
+        if (!ennemi)
+        {
+            m_v2Pos.y -= push;
+            if (m_v2Pos.y < 0)
+                m_v2Pos.y = 0;
+        }
         updatePosition();
     }
+
+    public int getLife() {
+        return m_iLife;
+    }
+
+    public int getMaxLife()
+    {
+        return m_iMaxLife;
+    }
+
     protected void updatePosition()
     {
-        transform.position = new Vector3(1 + (3 * pos.x), 0.5f, -1 + (-2.5f * pos.y)) ;
+        transform.position = new Vector3(1 + (3 * m_v2Pos.x), 0.5f, -1 + (-2.5f * m_v2Pos.y)) ;
     }
+}
+
+
+public enum Patern
+{
+    point,
+    line,
+    column,
+    cross,
+    diagonalHtoL,
+    diagonalLtoH,
+    diagonal,
 }

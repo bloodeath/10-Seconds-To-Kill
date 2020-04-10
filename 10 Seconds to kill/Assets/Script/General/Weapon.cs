@@ -23,7 +23,7 @@ public abstract class Weapon : MonoBehaviour
 
     protected abstract IEnumerator doSomething();
 
-    public Vector2 getTarget()
+    public Vector2 getTargets()
     {
         return m_v2Target;
     }

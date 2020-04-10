@@ -19,7 +19,7 @@ public class TestWeapon : Weapon
         Ennemi ennemi = BattleManager.instance.GetEnnemiAtPosition(m_v2Target);
         if (ennemi && BattleManager.instance.removeTime(cost))
         {
-            ennemi.removePV(dmg);
+            ennemi.removeLife(dmg);
         }
         m_bInfirst = false;
         UIManager.instance.displayTargeting(false);

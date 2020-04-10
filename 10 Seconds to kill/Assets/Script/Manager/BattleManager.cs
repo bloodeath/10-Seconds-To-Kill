@@ -31,7 +31,7 @@ public class BattleManager : Singleton<BattleManager>
     public Ennemi GetEnnemiAtPosition(Vector2 pos)
     {
         foreach (Ennemi e in ennemis)
-            if (e.pos == pos)
+            if (e.m_v2Pos == pos)
                 return e;
 
         return null;
