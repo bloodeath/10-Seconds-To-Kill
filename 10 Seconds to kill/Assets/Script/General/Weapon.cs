@@ -7,6 +7,7 @@ public abstract class Weapon : MonoBehaviour
     public int cost;
     protected bool m_bInfirst = false;
     protected Vector2 m_v2Target;
+    public Patern patern;
     public virtual void action()
     {
         if (BattleManager.instance.getTime() < cost)
@@ -15,7 +16,7 @@ public abstract class Weapon : MonoBehaviour
 
     protected IEnumerator selectPos()
     {
-        UIManager.instance.displayTargeting(true);
+        UIManager.instance.displayTargeting(true, patern);
         yield return new WaitUntil(() => UIManager.instance.requestPosition());
         m_v2Target = UIManager.instance.selectedPos;
         m_bInfirst = true;

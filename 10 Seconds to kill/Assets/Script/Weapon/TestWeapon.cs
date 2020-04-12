@@ -22,6 +22,6 @@ public class TestWeapon : Weapon
             ennemi.removeLife(dmg);
         }
         m_bInfirst = false;
-        UIManager.instance.displayTargeting(false);
+        UIManager.instance.displayTargeting(false, Patern.point);
     }
 }
