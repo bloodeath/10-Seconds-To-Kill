@@ -20,7 +20,7 @@ public class BattleManager : Singleton<BattleManager>
             temptime = 0;
         }
         temptime += Time.deltaTime;
-        if (time <= 0)
+        if (time < 1)
         {
             turnEnnemi();
             time = 10;
@@ -57,6 +57,11 @@ public class BattleManager : Singleton<BattleManager>
     public int getTime()
     {
         return time;
+    }
+
+    public float getTempTime()
+    {
+        return temptime;
     }
 
 }

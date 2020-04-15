@@ -6,15 +6,19 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     public Canvas canvas;
+
     public List<GameObject> generetedButton = new List<GameObject>();
     private List<Button> generatedWeapon = new List<Button>();
     private Dictionary<Slider,Ennemi> generetedLifeBar = new Dictionary<Slider, Ennemi>();
-    public Text displayTime;
+
+    public Slider displayTime;
     public Slider displayLife;
     public Button button;
     public Slider lifeBar;
+
     public Vector2 selectedPos;
     public Patern patern;
+
     private bool isSelected = false;
 
     //protection pour évité les instansations
@@ -33,9 +37,10 @@ public class UIManager : Singleton<UIManager>
 
     private void Update()
     {
-        displayTime.text = BattleManager.instance.getTime().ToString();
+        displayTime.value = BattleManager.instance.getTime() - (BattleManager.instance.getTempTime()/2.0f);
         displayLife.value = InventoryManager.instance.getLife();
         updateLifeBar();
+        updateWeapon();
     }
 
     public bool requestPosition()
@@ -190,6 +195,17 @@ public class UIManager : Singleton<UIManager>
             s.value = generetedLifeBar[s].getLife();
         }
     }
+    public void updateWeapon()
+    {
+        int time = BattleManager.instance.getTime();
+        foreach (Button w in generatedWeapon)
+        {
+            if (time < w.GetComponentInChildren<Weapon>().cost)
+                w.interactable = false;
+            else
+                w.interactable = true;
+        }
+    }
 
     private void generateWeapon()
     {
@@ -232,7 +248,7 @@ public class UIManager : Singleton<UIManager>
             instance.gameObject.transform.SetParent(canvas.transform);
 
             //placement et paramètrage de la barre de vie
-            instance.transform.position = new Vector3(0, 50, 0) + Camera.main.WorldToScreenPoint(e.transform.position);
+            instance.transform.position = Camera.main.WorldToScreenPoint(e.transform.position);
 
             //définition des limites de la barre de vie
             instance.maxValue = e.getMaxLife();
