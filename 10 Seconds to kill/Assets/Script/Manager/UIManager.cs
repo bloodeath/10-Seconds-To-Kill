@@ -223,7 +223,7 @@ public class UIManager : Singleton<UIManager>
             weaponInstance.gameObject.transform.SetParent(instance.transform);
 
             //placement et paramètrage de l'arme
-            instance.transform.position = new Vector3(150, 50 + i * 30, 0);
+            instance.transform.position = new Vector3(150, 50 + i * 40, 0);
             instance.GetComponentInChildren<Text>().text = w.name;
 
             //ajout d'un listener qui va activé l'action de l'arme
