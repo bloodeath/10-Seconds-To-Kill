@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestWeapon : Weapon
+public class TestAttract : Weapon
 {
     public int dmg;
 
@@ -20,6 +20,7 @@ public class TestWeapon : Weapon
         if (ennemi && BattleManager.instance.removeTime(cost))
         {
             ennemi.removeLife(dmg);
+            ennemi.move(Vector2.left);
         }
         m_bInfirst = false;
         UIManager.instance.m_tcTargetingCollection.DisplayTargeting(false, Patern.point);

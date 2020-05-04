@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestWeapon : Weapon
+public class TestLine : Weapon
 {
     public int dmg;
 
@@ -16,11 +16,14 @@ public class TestWeapon : Weapon
     protected override IEnumerator doSomething()
     {
         yield return new WaitUntil(() => m_bInfirst);
-        Ennemi ennemi = BattleManager.instance.GetEnnemiAtPosition(m_v2Target);
-        if (ennemi && BattleManager.instance.removeTime(cost))
-        {
-            ennemi.removeLife(dmg);
-        }
+        if (BattleManager.instance.removeTime(cost))
+            for (int y = 0; y < 3; y++)
+            {
+                Ennemi ennemi = BattleManager.instance.GetEnnemiAtPosition(new Vector2(m_v2Target.x, y));
+                if (ennemi)
+                    ennemi.removeLife(dmg);
+            
+            }
         m_bInfirst = false;
         UIManager.instance.m_tcTargetingCollection.DisplayTargeting(false, Patern.point);
     }

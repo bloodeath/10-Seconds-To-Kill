@@ -8,6 +8,8 @@ public abstract class Weapon : MonoBehaviour
     protected bool m_bInfirst = false;
     protected Vector2 m_v2Target;
     public Patern patern;
+    public List<WeaponParticularity> weaponParticularities;
+
     public virtual void action()
     {
         if (BattleManager.instance.getTime() < cost)
@@ -16,9 +18,9 @@ public abstract class Weapon : MonoBehaviour
 
     protected IEnumerator selectPos()
     {
-        UIManager.instance.displayTargeting(true, patern);
+        UIManager.instance.m_tcTargetingCollection.DisplayTargeting(true, patern);
         yield return new WaitUntil(() => UIManager.instance.requestPosition());
-        m_v2Target = UIManager.instance.selectedPos;
+        m_v2Target = UIManager.instance.getPos();
         m_bInfirst = true;
     }
 
@@ -33,4 +35,29 @@ public abstract class Weapon : MonoBehaviour
     {
         m_v2Target = target;
     }
+}
+
+public enum Patern
+{
+    point,
+    line,
+    column,
+    cross,
+    diagonalHtoL,
+    diagonalLtoH,
+    diagonal,
+}
+
+public enum WeaponParticularity
+{
+    damage,
+    attract,
+    repulse,
+    shiftLeft,
+    shiftRight,
+    fire,
+    electric,
+    heal,
+    stun,
+    timeRestore
 }
