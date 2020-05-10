@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 public class LifeBarCollection
 {
-    private Dictionary<Slider, Ennemi> m_dLifeBars = new Dictionary<Slider, Ennemi>();
+    private Dictionary<Bar, Ennemi> m_dLifeBars = new Dictionary<Bar, Ennemi>();
 
     public void UpdateLifeBar()
     {
-        foreach (Slider s in m_dLifeBars.Keys)
+        foreach (Bar s in m_dLifeBars.Keys)
         {
             if (m_dLifeBars[s] == null)
             {
@@ -17,18 +17,18 @@ public class LifeBarCollection
                 break;
             }
             s.transform.position = new Vector3(0, 50, 0) + Camera.main.WorldToScreenPoint(m_dLifeBars[s].transform.position);
-            s.maxValue = m_dLifeBars[s].getMaxLife();
-            s.value = m_dLifeBars[s].getLife();
+            s.Max = m_dLifeBars[s].getMaxLife();
+            s.Value = m_dLifeBars[s].getLife();
         }
     }
 
-    public void GenerateLifeBar(Slider lifeBar)
+    public void GenerateLifeBar(Bar lifeBar)
     {
         //pour chaque arme équipé
         foreach (Ennemi e in BattleManager.instance.ennemis)
         {
             //génération d'un bouton qui as une copie de la barre de vie en enfant
-            Slider instance = GameObject.Instantiate<Slider>(lifeBar);
+            Bar instance = GameObject.Instantiate<Bar>(lifeBar);
 
             //gestion de la hièrachie des objets générés
             instance.gameObject.transform.SetParent(UIManager.instance.canvas.transform);
@@ -37,8 +37,8 @@ public class LifeBarCollection
             instance.transform.position = Camera.main.WorldToScreenPoint(e.transform.position);
 
             //définition des limites de la barre de vie
-            instance.maxValue = e.getMaxLife();
-            instance.value = e.getLife();
+            instance.Max = e.getMaxLife();
+            instance.Value = e.getLife();
 
             //ajout des données de la barre de vie à une collection
             m_dLifeBars.Add(instance, e);

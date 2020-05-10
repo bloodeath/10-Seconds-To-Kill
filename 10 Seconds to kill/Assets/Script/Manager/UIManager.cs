@@ -11,9 +11,9 @@ public class UIManager : Singleton<UIManager>
     private LifeBarCollection m_lcLifeBarCollection;
     public TargetingCollection m_tcTargetingCollection;
 
-    public Slider displayTime;
-    public Slider displayLife;
-    public Slider lifeBar;
+    public Bar displayTime;
+    public Bar displayLife;
+    public Bar lifeBar;
     public Button button;
     public GameObject m_goInterfacePrefab;
 
@@ -34,15 +34,15 @@ public class UIManager : Singleton<UIManager>
 
         m_wcWeaponCollection.GenerateWeapon(button);
         m_lcLifeBarCollection.GenerateLifeBar(lifeBar);
-        m_tcTargetingCollection.DisplayTargeting(false, Patern.point);
+        m_tcTargetingCollection.DisplayTargeting(false, Patern.none);
 
-        displayLife.maxValue = InventoryManager.instance.m_iMaxLife;
+        displayLife.Max = InventoryManager.instance.m_iMaxLife;
     }
 
     private void Update()
     {
-        displayTime.value = BattleManager.instance.getTime() - (BattleManager.instance.getTempTime()/2.0f);
-        displayLife.value = InventoryManager.instance.getLife();
+        displayTime.Value = BattleManager.instance.getTime() - (BattleManager.instance.getTempTime()/2.0f);
+        displayLife.Value = InventoryManager.instance.getLife();
         m_wcWeaponCollection.UpdateWeapon();
         m_lcLifeBarCollection.UpdateLifeBar();
     }

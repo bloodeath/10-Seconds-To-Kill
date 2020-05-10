@@ -45,4 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 2
   patern: 0
+  weaponParticularities: 00000000
   dmg: 4

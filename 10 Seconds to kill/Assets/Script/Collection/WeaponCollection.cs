@@ -9,14 +9,8 @@ public class WeaponCollection
 
     public void UpdateWeapon()
     {
-        int time = BattleManager.instance.getTime();
         foreach (Button w in m_lWeapons)
-        {
-            if (time < w.GetComponentInChildren<Weapon>().cost)
-                w.interactable = false;
-            else
-                w.interactable = true;
-        }
+            w.interactable = (w.GetComponentInChildren<NewWeapon>().IsPossible());
     }
 
     public void GenerateWeapon(Button button) {
@@ -38,7 +32,7 @@ public class WeaponCollection
             instance.GetComponentInChildren<Text>().text = w.name;
 
             //ajout d'un listener qui va activé l'action de l'arme
-            instance.onClick.AddListener(() => weaponInstance.GetComponent<Weapon>().action());
+            instance.onClick.AddListener(() => weaponInstance.GetComponent<NewWeapon>().Action());
 
             //ajout de l'arme à une collection
             m_lWeapons.Add(instance);

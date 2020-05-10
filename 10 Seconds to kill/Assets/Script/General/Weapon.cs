@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
+    /*
     public int cost;
     protected bool m_bInfirst = false;
     protected Vector2 m_v2Target;
     public Patern patern;
-    public List<WeaponParticularity> weaponParticularities;
 
     public virtual void action()
     {
@@ -24,7 +24,21 @@ public abstract class Weapon : MonoBehaviour
         m_bInfirst = true;
     }
 
-    protected abstract IEnumerator doSomething();
+    protected virtual IEnumerator doSomething() {
+
+        yield return new WaitUntil(() => m_bInfirst);
+        Ennemi ennemi = BattleManager.instance.GetEnnemiAtPosition(m_v2Target);
+        ennemi.removeLife(dmg);
+        m_bInfirst = false;
+        UIManager.instance.m_tcTargetingCollection.DisplayTargeting(false, Patern.point);
+    }
+
+    protected virtual bool IsPossible()
+    {
+        bool isPossible = true;
+        isPossible += (ennemi && BattleManager.instance.removeTime(cost));
+        return isPossible;
+    }
 
     public Vector2 getTargets()
     {
@@ -34,30 +48,6 @@ public abstract class Weapon : MonoBehaviour
     public void setTarget(Vector2 target)
     {
         m_v2Target = target;
-    }
+    }*/
 }
 
-public enum Patern
-{
-    point,
-    line,
-    column,
-    cross,
-    diagonalHtoL,
-    diagonalLtoH,
-    diagonal,
-}
-
-public enum WeaponParticularity
-{
-    damage,
-    attract,
-    repulse,
-    shiftLeft,
-    shiftRight,
-    fire,
-    electric,
-    heal,
-    stun,
-    timeRestore
-}

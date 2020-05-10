@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TestLine : Weapon
-{
+{/*
     public int dmg;
 
     public override void action()
@@ -26,5 +26,5 @@ public class TestLine : Weapon
             }
         m_bInfirst = false;
         UIManager.instance.m_tcTargetingCollection.DisplayTargeting(false, Patern.point);
-    }
+    }*/
 }

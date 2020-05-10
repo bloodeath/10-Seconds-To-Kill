@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TestAttract : Weapon
 {
+    /*
     public int dmg;
 
     public override void action()
@@ -24,5 +25,5 @@ public class TestAttract : Weapon
         }
         m_bInfirst = false;
         UIManager.instance.m_tcTargetingCollection.DisplayTargeting(false, Patern.point);
-    }
+    }*/
 }

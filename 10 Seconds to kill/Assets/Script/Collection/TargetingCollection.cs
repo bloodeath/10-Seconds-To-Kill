@@ -127,7 +127,16 @@ public class TargetingCollection
                         }
                         else
                             go.GetComponent<CaseButton>().interactable = false;
+                        break;
 
+                    case Patern.ennemi:
+                        Ennemi e;
+                        for (int x = 0; x < 3; x++)
+                            for(int y = 0; y < 3; y++)
+                            {
+                                e = BattleManager.instance.GetEnnemiAtPosition(new Vector2(x, y));
+                                m_lButtons[y * 3 + x].GetComponent<CaseButton>().interactable = (e != null);
+                            }
                         break;
                 }
             }
